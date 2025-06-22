@@ -1,0 +1,77 @@
+{%  extends "baseMProyecto.html" %}
+{% load static %}
+{% block titulo %} LISTADO DE EMPLEOS {% endblock  %}
+
+{% block cuerpo%} <h1> LISTADO DE EMPLEOS </H1>
+
+<div class="card">
+    <div class="card-header">
+        <a
+            name="Nuevo"
+            id=""
+            class="btn btn-primary"
+            href="{% url 'crearEmpleos' %}"
+            role="button"
+            >Nuevo Empleo</a
+        >
+        <a
+            name="Informacion"
+            id=""
+            class="btn btn-success"
+            href="#"
+            role="button"
+            >Informacion</a
+        >
+
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">EMPLEOS</h4>
+
+
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">Fecha de Publicacion</th>
+                        <th scope="col">Empleo</th>
+                        <th scope="col">Empresa</th>
+                        <th scope="col">Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="">
+                        <td scope="row">11-04-2025</td>
+                        <td>Programador con conocimiento en Laravel</td>
+                        <td>SEGIP </td>
+                        <td>
+                            <a
+                            name="Modificar"
+                            id=""
+                            class="btn btn-warning"
+                            href="{% url 'modificarEmpleos' %}"
+                            role="button"
+                            >Modificar</a>
+                            <a
+                            name="Eliminar"
+                            id=""
+                            class="btn btn-danger"
+                            href="#"
+                            role="button"
+                            >Eliminar</a>
+                        </td>
+
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        
+        <p class="card-text">
+            Sistema de bolsa e empleos
+        </p>
+    </div>
+    <div class="card-footer text-muted">Footer</div>
+</div>
+
+{%endblock%} 

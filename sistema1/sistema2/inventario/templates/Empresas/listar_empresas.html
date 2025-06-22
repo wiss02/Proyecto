@@ -1,0 +1,65 @@
+{% extends "baseMProyecto.html" %}
+{% load static %}
+
+{% block titulo %}{{ titulo_pagina|default:"Empresas" }}{% endblock %}
+
+{% block cuerpo %}
+<div class="container mt-4">
+    <h1 class="mb-4">{{ titulo_pagina|default:"Empresas Colaboradoras" }}</h1>
+
+    {% if empresas %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for empresa_obj in empresas %} {# Cambiado 'empresa' a 'empresa_obj' para evitar conflicto con variable de contexto de la vista de detalle #}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    {% if empresa_obj.logo %}
+                        <img src="{{ empresa_obj.logo.url }}" class="card-img-top p-3" alt="Logo de {{ empresa_obj.nombre }}" style="max-height: 150px; object-fit: contain;">
+                    {% else %}
+                        <img src="{% static 'images/placeholder_logo_empresa.png' %}" class="card-img-top p-3" alt="Logo no disponible" style="max-height: 150px; object-fit: contain;">
+                        {# Necesitarás crear una imagen placeholder en inventario/static/images/placeholder_logo_empresa.png #}
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title"><a href="{{ empresa_obj.get_absolute_url }}" class="text-decoration-none">{{ empresa_obj.nombre }}</a></h5>
+                        <p class="card-text text-muted small">{{ empresa_obj.sector|default:"Sector no especificado" }}</p>
+                        <p class="card-text flex-grow-1">
+                            {{ empresa_obj.descripcion|truncatewords:20|default:"Descripción no disponible." }}
+                        </p>
+                        <a href="{{ empresa_obj.get_absolute_url }}" class="btn btn-outline-primary btn-sm mt-auto">Ver Perfil y Ofertas</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {# Paginación #}
+        {% if empresas.has_other_pages %}
+        <nav aria-label="Navegación de empresas" class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if empresas.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ empresas.previous_page_number }}">&laquo; Anterior</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">&laquo; Anterior</span></li>
+                {% endif %}
+
+                {% for i in empresas.paginator.page_range %}
+                    {% if empresas.number == i %}
+                        <li class="page-item active" aria-current="page"><span class="page-link">{{ i }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if empresas.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ empresas.next_page_number }}">Siguiente &raquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">Siguiente &raquo;</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+
+    {% else %}
+        <p>Actualmente no hay empresas registradas. ¡Vuelve pronto!</p>
+    {% endif %}
+</div>
+{% endblock %}

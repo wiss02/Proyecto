@@ -1,0 +1,80 @@
+{% extends "baseMProyecto.html" %}
+{% load static %}
+
+{% block titulo %} LISTADO DE PROGRAMADORES {% endblock %}
+
+{% block cuerpo %}
+<h1>LISTADO DE PROGRAMADORES</h1>
+
+<div class="card">
+    <div class="card-header">
+        <a
+            name="NuevoProgramador"
+            class="btn btn-primary"
+            href="{% url 'crear_programador' %}"
+            role="button"
+            >Nuevo Programador</a
+        >
+        {# Puedes añadir más botones si es necesario #}
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">PROGRAMADORES REGISTRADOS</h4>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Nombre Completo</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Especialidad</th>
+                        <th scope="col">Lenguajes</th>
+                        <th scope="col">Años Exp.</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for programador in programadores %}
+                    <tr>
+                        <td>{{ programador.nombre }} {{ programador.apellido }}</td>
+                        <td>{{ programador.email|default:"N/A" }}</td>
+                        <td>{{ programador.especialidad|default:"N/A" }}</td>
+                        <td>{{ programador.lenguajes|truncatewords:10|default:"N/A" }}</td>
+                        <td>{{ programador.experiencia_anios }}</td>
+                        <td>
+                            <a
+                                class="btn btn-warning btn-sm"
+                                href="{% url 'modificar_programador' programador.pk %}"
+                                role="button"
+                                >Modificar</a
+                            >
+                            <form action="{% url 'eliminar_programador' programador.pk %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button
+                                    type="submit"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm('¿Estás seguro de que deseas eliminar a {{ programador.nombre }} {{ programador.apellido }}?');"
+                                    >Eliminar</button
+                                >
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No hay programadores registrados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        Total de programadores: {{ programadores.count }}
+    </div>
+</div>
+{% endblock %}

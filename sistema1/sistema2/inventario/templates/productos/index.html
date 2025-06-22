@@ -1,0 +1,79 @@
+{%  extends "base.html" %}
+{% load static %}
+{% block titulo %} listar productos {% endblock  %}
+
+{% block cuerpo%} <h1> LISTADO DE PRODUCTOS </H1>
+
+<div class="card">
+    <div class="card-header">
+       <a
+        name="nuevo"
+        id=""
+        class="btn btn-primary"
+        href="{% url 'creaprod' %}"
+        role="button"
+        >Nuevo Producto</a>
+        <a
+        name="impresion"
+        id=""
+        class="btn btn-success"
+        href="#"
+        role="button"
+        >Impresion</a>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">PRODUCTOS</h4>
+        <div  class="table-responsive"  >
+            <table  class="table table-primary"  >
+                <thead>
+                    <tr>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Accion</th>
+                        
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <td>1</td>
+                        <td>Mentisan</td>
+                        <td>inti</td>
+                        <td>100</td>
+                        <td>10</td>
+                        <td>imagen</td>
+                        <td>
+                            <a
+                            name="modifica"
+                            id=""
+                            class="btn btn-warning"
+                            href="{% url 'modprod' %}"
+                            role="button"
+                            >Modificar</a>
+                            <a
+                            name="elimina"
+                            id=""
+                            class="btn btn-danger"
+                            href="#"
+                            role="button"
+                            >Eliminar</a>
+                            
+                            </td>
+                    </tr>
+                 
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    <div class="card-footer text-muted">
+        sistema de inventarios
+    </div>
+</div>
+
+
+{%endblock%} 

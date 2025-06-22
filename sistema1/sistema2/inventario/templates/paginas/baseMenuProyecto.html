@@ -1,0 +1,82 @@
+{% extends "baseMProyecto.html" %}
+{% load static %}
+{% block titulo %} Coder - Conectando Talento con Oportunidades {% endblock %}
+
+{% block cuerpo %}
+<body style="background-image: url('{% static 'images/fondo1.jpg' %}'); background-size: cover; background-position: center; background-attachment: fixed; color: white; font-family: Arial, sans-serif;">
+    <div style="display: flex; justify-content: flex-start; margin-top: 30px;">
+        <div style="width: 70%; margin-left: 5%; font-family: 'Arial Black', sans-serif; color: white;">
+           
+            <section style="text-align: left; margin-bottom: 60px;">
+                <h1 style="font-size: 70px; margin-bottom: 20px;">Coder</h1>
+                <h2 style="font-size: 30px; margin-bottom: 40px;">La plataforma que conecta talento tech con oportunidades</h2>
+                
+                <div style="background: rgba(0, 0, 0, 0.7); padding: 30px; border-radius: 10px; max-width: 900px;">
+                    <h3 style="font-size: 40px; color: #ffffff; margin-top: 0;">Encuentra tu próximo desafío o tu próximo talento</h3>
+                    
+                    <!-- Programadores -->
+                    <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
+                        <div style="background: rgba(46, 64, 83, 0.8); padding: 20px; border-radius: 8px; width: 280px;">
+                            <h4 style="color: #e74c3c; font-size: 24px;">¿Eres programador/a?</h4>
+                            <ul style="text-align: left; padding-left: 20px;">
+                                <li>Conecta con empresas que valoran tus habilidades</li>
+                                <li>Ofertas exclusivas en startups y compañías</li>
+                                <li>Mejora tu perfil con recursos tech</li>
+                            </ul>
+                            <a href="#" style="display: inline-block; background: #e74c3c; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-top: 15px; font-weight: bold;">Busco empleo</a>
+                        </div>
+                        
+                        <!-- Empresas -->
+                        <div style="background: rgba(46, 64, 83, 0.8); padding: 20px; border-radius: 8px; width: 280px;">
+                            <h4 style="color: #e74c3c; font-size: 24px;">¿Eres empresa?</h4>
+                            <ul style="text-align: left; padding-left: 20px;">
+                                <li>Encuentra desarrolladores calificados</li>
+                                <li>Publica vacantes fácilmente</li>
+                                <li>Herramientas para equipos técnicos</li>
+                            </ul>
+                            <a href="#" style="display: inline-block; background: #3498db; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-top: 15px; font-weight: bold;">Busco talento</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Secciones de contenido (manteniendo tu estilo) -->
+            <section style="text-align: left; font-family: 'Verdana', sans-serif; margin-top: 50px; background: rgba(0, 0, 0, 0.7); padding: 30px; border-radius: 10px;">
+                <h2 style="font-size: 30px; color: #e74c3c;">Nuestra Misión</h2>
+                <p style="font-size: 20px; max-width: 1000px; text-align: justify;">
+                    Conectar programadores talentosos de Bolivia con oportunidades laborales nacionales e internacionales, 
+                    impulsando la innovación y el crecimiento del sector tecnológico.
+                </p>
+            </section>
+
+            <section style="text-align: left; font-family: 'Verdana', sans-serif; margin-top: 50px; background: rgba(0, 0, 0, 0.7); padding: 30px; border-radius: 10px;">
+                <h2 style="font-size: 30px; color: #e74c3c;">Nuestra Visión</h2>
+                <p style="font-size: 20px; max-width: 1000px; text-align: justify;">
+                    Ser la plataforma líder en Bolivia para el talento tecnológico, promoviendo la digitalización y la competitividad 
+                    global de nuestros profesionales.
+                </p>
+            </section>
+            
+            <section style="text-align: left; font-family: 'Verdana', sans-serif; margin-top: 50px; background: rgba(0, 0, 0, 0.7); padding: 30px; border-radius: 10px;">
+                <h2 style="font-size: 30px; color: #e74c3c;">¿Qué es Coder?</h2>
+                <p style="font-size: 20px; max-width: 1000px; text-align: justify;">
+                    Es una bolsa de empleo creada por y para desarrolladores. Ayudamos a empresas a encontrar talento tecnológico y a programadores a mostrar sus habilidades a través de un portafolio digital.
+                </p>
+            </section>
+            
+        </div>
+    </div>
+
+    <!-- Estilos adicionales para hover -->
+    <style>
+        .card-hover:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        a:hover {
+            opacity: 0.9;
+        }
+    </style>
+</body>
+{% endblock %}

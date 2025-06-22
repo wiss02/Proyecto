@@ -1,0 +1,42 @@
+{% extends "baseMProyecto.html" %}
+{% load static %}
+
+{% block titulo %} {{ titulo_pagina|default:"Gestionar Programador" }} {% endblock %}
+
+{% block cuerpo %}
+<h1>{{ titulo_pagina|default:"Gestionar Programador" }}</h1>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {# Renderizar campos uno por uno para más control o usar {{ form.as_p }}, {{ form.as_table }}, etc. #}
+            {% for field in form %}
+                <div class="form-group mb-3">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger mt-1 p-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-success">Guardar Programador</button>
+            <a href="{% url 'listar_programadores' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

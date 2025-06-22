@@ -1,0 +1,73 @@
+{% extends "baseMProyecto.html" %}
+{% load static %}
+
+{% block titulo %}{{ titulo_pagina|default:"Blog" }}{% endblock %}
+
+{% block cuerpo %}
+
+<div class="container mt-4">
+    <h1 class="mb-4">{{ titulo_pagina|default:"Blog de la Bolsa de Empleos" }}</h1>
+
+    {% if articulos %}
+        {% for articulo in articulos %}
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title h4"><a href="{{ articulo.get_absolute_url }}" class="text-decoration-none">{{ articulo.titulo }}</a></h2>
+                <p class="card-subtitle mb-2 text-muted">
+                    Publicado el: {{ articulo.fecha_publicacion|date:"d \d\e F \d\e Y" }}
+                </p>
+                <p class="card-text">
+                    {% if articulo.resumen %}
+                        {{ articulo.resumen|linebreaksbr }}
+                    {% else %}
+                        {{ articulo.contenido|truncatewords_html:50|striptags|linebreaksbr }}
+                    {% endif %}
+                </p>
+                <a href="{{ articulo.get_absolute_url }}" class="btn btn-primary btn-sm">Leer Más &raquo;</a>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% if articulos.has_other_pages %}
+        <nav aria-label="Navegación de artículos del blog">
+            <ul class="pagination justify-content-center">
+                {% if articulos.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ articulos.previous_page_number }}" aria-label="Anterior">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link" aria-hidden="true">&laquo;</span>
+                    </li>
+                {% endif %}
+
+                {% for i in articulos.paginator.page_range %}
+                    {% if articulos.number == i %}
+                        <li class="page-item active" aria-current="page"><span class="page-link">{{ i }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if articulos.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ articulos.next_page_number }}" aria-label="Siguiente">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link" aria-hidden="true">&raquo;</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+
+    {% else %}
+        <p>Aún no hay artículos publicados en nuestro blog. ¡Vuelve pronto!</p>
+    {% endif %}
+</div>
+{% endblock %}

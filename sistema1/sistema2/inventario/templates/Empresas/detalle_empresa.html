@@ -1,0 +1,63 @@
+{% extends "baseMProyecto.html" %}
+{% load static %}
+
+{% block titulo %}{{ empresa.nombre }} - Perfil de Empresa{% endblock %}
+
+{% block cuerpo %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4 text-center mb-3">
+            {% if empresa.logo %}
+                <img src="{{ empresa.logo.url }}" alt="Logo de {{ empresa.nombre }}" class="img-fluid rounded shadow-sm" style="max-width: 250px; max-height: 250px;">
+            {% else %}
+                <img src="{% static 'images/placeholder_logo_empresa.png' %}" class="img-fluid rounded shadow-sm" alt="Logo no disponible" style="max-width: 250px; max-height: 250px;">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <h1 class="display-5">{{ empresa.nombre }}</h1>
+            <p class="lead text-muted">{{ empresa.sector|default:"" }}</p>
+            {% if empresa.sitio_web %}
+                <p><i class="bi bi-link-45deg"></i> <a href="{{ empresa.sitio_web }}" target="_blank" rel="noopener noreferrer">{{ empresa.sitio_web }}</a></p>
+            {% endif %}
+            {% if empresa.email_contacto %}
+                <p><i class="bi bi-envelope-fill"></i> {{ empresa.email_contacto }}</p>
+            {% endif %}
+             {% if empresa.telefono %}
+                <p><i class="bi bi-telephone-fill"></i> {{ empresa.telefono }}</p>
+            {% endif %}
+            {% if empresa.direccion %}
+                <p><i class="bi bi-geo-alt-fill"></i> {{ empresa.direccion }}{% if empresa.ciudad %}, {{ empresa.ciudad }}{% endif %}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="descripcion-empresa mb-4">
+        <h4>Sobre Nosotros</h4>
+        <p>{{ empresa.descripcion|linebreaksbr|default:"Descripción no proporcionada." }}</p>
+    </div>
+
+    <h3 class="mb-3">Ofertas de Empleo Activas de {{ empresa.nombre }}</h3>
+    {% if ofertas_empleo %}
+        {% for oferta in ofertas_empleo %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><a href="{{ oferta.get_absolute_url }}" class="text-decoration-none">{{ oferta.titulo_puesto }}</a></h5> {# Asume que oferta.get_absolute_url() está definido #}
+                <h6 class="card-subtitle mb-2 text-muted">{{ oferta.ubicacion }} - {{ oferta.tipo_contrato|default:"No especificado" }}</h6>
+                <p class="card-text small text-muted">Publicado: {{ oferta.fecha_publicacion|date:"d M Y" }}</p>
+                <p class="card-text">{{ oferta.descripcion_puesto|truncatewords:30 }}</p>
+                {# <a href="{{ oferta.get_absolute_url }}" class="btn btn-info btn-sm">Ver Detalles</a> #}
+                {# Si tienes una URL para detalle de oferta, úsala arriba #}
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Actualmente, {{ empresa.nombre }} no tiene ofertas de empleo publicadas.</p>
+    {% endif %}
+
+    <hr class="my-4">
+    <a href="{% url 'listar_empresas' %}" class="btn btn-outline-secondary">&laquo; Volver a todas las Empresas</a>
+
+</div>
+{% endblock %}
